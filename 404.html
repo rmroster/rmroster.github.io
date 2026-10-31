@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<title>Site Closed</title>
+<style>
+:root{color-scheme:light dark}
+html,body{margin:0;background:#ECECEA;color:#2B2C2F;font-family:Arial,Helvetica,sans-serif}
+@media (prefers-color-scheme: dark){html,body{background:#ECECEA;color:#2B2C2F}}
+main{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;box-sizing:border-box}
+h1{font-size:28px;margin:0 0 12px}
+p{font-size:16px;line-height:1.5;margin:0;color:#555;max-width:340px}
+</style>
+</head>
+<body>
+<main>
+<h1>Site Closed</h1>
+<p>This site is no longer available. You can remove it from your home screen.</p>
+</main>
+<script>
+// Erase everything this app ever stored on this device: offline copy, saved login, settings, alert sign-up
+(function () {
+  try { localStorage.clear(); } catch (e) {}
+  try { sessionStorage.clear(); } catch (e) {}
+  try { if (indexedDB.databases) indexedDB.databases().then(function (dbs) { dbs.forEach(function (d) { if (d.name) indexedDB.deleteDatabase(d.name); }); }); else ['firebaseLocalStorageDb', 'firebase-installations-database', 'firebase-messaging-database'].forEach(function (n) { indexedDB.deleteDatabase(n); }); } catch (e) {}
+  try { if (window.caches) caches.keys().then(function (k) { k.forEach(function (n) { caches.delete(n); }); }); } catch (e) {}
+  try { document.cookie.split(';').forEach(function (c) { document.cookie = c.split('=')[0].trim() + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/'; }); } catch (e) {}
+  try { if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) {
+    (r.pushManager ? r.pushManager.getSubscription().then(function (sub) { return sub && sub.unsubscribe(); }).catch(function () {}) : Promise.resolve()).then(function () { r.unregister(); });
+  }); }); } catch (e) {}
+})();
+</script>
+</body>
+</html>
